@@ -1,7 +1,9 @@
 import Router from "./Router";
 import GlobalStyle from './Styles/GlobalStyle';
+import { useRecoilValue } from 'recoil';
 import { ThemeProvider, styled } from 'styled-components';
-import { theme } from './Styles/theme';
+import { lightTheme, darkTheme } from './Styles/theme';
+import { isLightAtom } from "./atoms";
 
 const Container = styled.div`
   max-width: 600px;
@@ -10,8 +12,10 @@ const Container = styled.div`
 `;
 
 function App() {
+  const isLight = useRecoilValue(isLightAtom);
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
       <GlobalStyle />
       <Container>
         <Router />
