@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/project-coin-tracker/static/js/main.20cca725.js",
+    "static/media/icon-home.png": "/project-coin-tracker/static/media/icon-home.7c5703f089f4f7be771b.png",
+    "index.html": "/project-coin-tracker/index.html",
+    "main.20cca725.js.map": "/project-coin-tracker/static/js/main.20cca725.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.20cca725.js"
+  ]
+}
