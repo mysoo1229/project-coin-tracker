@@ -1,8 +1,11 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import Header from "../Components/Header";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinPrice } from "../api";
 import { styled } from "styled-components";
+import LineChart from "./tabs/LineChart";
+import CandleChart from "./tabs/CandleChart";
+import Price from "./tabs/Price";
 
 const Loading = styled.div`
   width: 50px;
@@ -80,6 +83,32 @@ const SupplyEach = styled.div`
   }
 `;
 
+const Tab = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 60px 0 20px;
+  padding: 2px;
+  background: ${(props) => props.theme.fillColor};
+  border-radius: 12px;
+  box-shadow: 0 0 10px 3px ${(props) => props.theme.shadowColor};
+  overflow: hidden;
+  text-align: center;
+`;
+
+const TabEach = styled.div<{ $active : boolean }>`
+  text-transform: uppercase;
+  font-size: 14px;
+
+  a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: ${(props) => props.$active ? props.theme.accentColor : "none"};
+    box-shadow: 0 0 10px 3px ${(props) => props.$active ? props.theme.shadowColor : "rgba(0, 0, 0, 0)"};
+    color: ${(props) => props.$active ? "#fff" : props.theme.textColor};
+  }
+`;
+
 interface IParam {
   coinId: string;
 }
@@ -110,6 +139,9 @@ function CoinEach() {
   const { isLoading: infoLoading, data: infoData } = useQuery<ICoinInfo>("coinInfo",  () => fetchCoinInfo(coinId));
   const { isLoading: priceLoading, data: priceData } = useQuery<ICoinPrice>("coinPrice", () => fetchCoinPrice(coinId));
   const isLoading = infoLoading || priceLoading;
+  const lineChartMatch = useRouteMatch("/:coinId/linechart");
+  const candleChartMatch = useRouteMatch("/:coinId/candlechart");
+  const priceMatch = useRouteMatch("/:coinId/price");
 
   return (
     <>
@@ -145,6 +177,29 @@ function CoinEach() {
               <div>{priceData?.max_supply}</div>
             </SupplyEach>
           </Supply>
+  
+          <Tab>
+            <TabEach $active={lineChartMatch !== null}>
+              <Link to={`/${coinId}/linechart`}>Line Chart</Link>
+            </TabEach>
+            <TabEach $active={candleChartMatch !== null}>
+              <Link to={`/${coinId}/candlechart`}>Candle Chart</Link>
+            </TabEach>
+            <TabEach $active={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </TabEach>
+          </Tab>
+          <Switch>
+            <Route path="/:coinId/linechart">
+              <LineChart coinId={coinId} />
+            </Route>
+            <Route path="/:coinId/candlechart">
+              <CandleChart coinId={coinId} />
+            </Route>
+            <Route path="/:coinId/price">
+              <Price coinId={coinId} />
+            </Route>
+          </Switch>
         </>
       )}
     </>
