@@ -8,7 +8,7 @@ import { isLightAtom } from "./atoms";
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
-  padding: 50px 20px;
+  padding: 50px 24px;
 `;
 
 function App() {

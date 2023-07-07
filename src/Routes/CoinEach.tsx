@@ -63,23 +63,50 @@ const Description = styled.div`
 const Supply = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   padding: 16px 30px;
   background: ${(props) => props.theme.fillColor};
   border-radius: 12px;
   text-align: center;
+
+  @media screen and (min-width: 375px) {
+    flex-direction: row;
+  }
 `;
 
 const SupplyEach = styled.div`
-  div {
+  + div {
     margin-top: 12px;
-    font-size: 20px;
-    font-weight: bold;
   }
 
   span {
     font-size: 12px;
     font-weight: normal;
     text-transform: uppercase;
+  }
+
+  div {
+    margin-top: 4px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  @media screen and (min-width: 375px) {
+    flex-direction: row;
+
+    + div {
+      margin-top: 0;
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+
+    div {
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -96,15 +123,19 @@ const Tab = styled.div`
 `;
 
 const TabEach = styled.div<{ $active : boolean }>`
+  display: flex;
   text-transform: uppercase;
   font-size: 14px;
 
   a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 10px 14px;
     border-radius: 12px;
     background: ${(props) => props.$active ? props.theme.accentColor : "none"};
     box-shadow: 0 0 10px 3px ${(props) => props.$active ? props.theme.shadowColor : "rgba(0, 0, 0, 0)"};
+    font-size: 14px;
+    line-height: 1.3;
     color: ${(props) => props.$active ? "#fff" : props.theme.textColor};
   }
 `;

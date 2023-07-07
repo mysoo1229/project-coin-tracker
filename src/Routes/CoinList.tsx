@@ -16,16 +16,25 @@ const Loading = styled.div`
 
 const List = styled.ul`
   display: grid;
-	grid-template-columns: repeat(3, 1fr);
-  gap: 1.6rem;
+	grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+
+  @media screen and (min-width: 576px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
 `;
 
 const Item = styled.li`
-  padding: 20px 10px 17px;
   box-sizing: border-box;
   background: ${(props) => props.theme.fillColor};
   border-radius: 16px;
   text-align: center;
+
+  a {
+    display: block;
+    padding: 20px 10px 17px;
+  }
 `;
 
 const ItemLogo = styled.div`
@@ -65,7 +74,7 @@ function CoinList() {
         </Loading>
       ) : (
         <List>
-          {data?.slice(0, 15).map(coin => (
+          {data?.slice(0, 24).map(coin => (
             <Item key={coin.id}>
               <Link
                 to={{
