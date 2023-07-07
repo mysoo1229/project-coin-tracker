@@ -12,10 +12,14 @@ const Title = styled.h1`
   font-weight: bold;
 `;
 
-function Header() {
+interface IHeaderProps {
+  title: string;
+}
+
+function Header({ title }: IHeaderProps) {
   return (
     <HeaderWrap>
-      <Title>Coin Tracker</Title>
+      <Title>{title}</Title>
     </HeaderWrap>
   )
 }
